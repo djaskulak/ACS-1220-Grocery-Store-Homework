@@ -22,8 +22,8 @@ def homepage():
     print(all_stores)
     return render_template('home.html', all_stores=all_stores)
 
-@main.route('/new_store', methods=['GET', 'POST'])
 @login_required
+@main.route('/new_store', methods=['GET', 'POST'])
 def new_store():
     # TODO: Create a GroceryStoreForm
     form = GroceryStoreForm()
@@ -45,8 +45,8 @@ def new_store():
     # TODO: Send the form to the template and use it to render the form fields
     return render_template('new_store.html', form=form)
 
-@main.route('/new_item', methods=['GET', 'POST'])
 @login_required
+@main.route('/new_item', methods=['GET', 'POST'])
 def new_item():
     # TODO: Create a GroceryItemForm
     form = GroceryItemForm()
@@ -72,8 +72,8 @@ def new_item():
     # TODO: Send the form to the template and use it to render the form fields
     return render_template('new_item.html', form=form)
 
-@main.route('/store/<store_id>', methods=['GET', 'POST'])
 @login_required
+@main.route('/store/<store_id>', methods=['GET', 'POST'])
 def store_detail(store_id):
     store = GroceryStore.query.get(store_id)
     # TODO: Create a GroceryStoreForm and pass in `obj=store`
@@ -99,8 +99,8 @@ def store_detail(store_id):
     store = GroceryStore.query.filter_by(id=store_id).one()
     return render_template('store_detail.html', store=store, form=form)
 
-@main.route('/item/<item_id>', methods=['GET', 'POST'])
 @login_required
+@main.route('/item/<item_id>', methods=['GET', 'POST'])
 def item_detail(item_id):
     item = GroceryItem.query.get(item_id)
     # TODO: Create a GroceryItemForm and pass in `obj=item`
@@ -129,8 +129,8 @@ def item_detail(item_id):
     item = GroceryItem.query.filter_by(id=item_id).one()
     return render_template('item_detail.html', item=item, form=form)
 
-@main.route('/add_to_shopping_list/<item_id>', methods=['GET', 'POST'])
 @login_required
+@main.route('/add_to_shopping_list/<item_id>', methods=['GET', 'POST'])
 def add_to_shopping_list(item_id):
     item = GroceryItem.query.get(item_id)
     print(item)
@@ -144,7 +144,7 @@ def add_to_shopping_list(item_id):
 #              Auth Routes               #
 ##########################################
 
-@auth.route('/signup', methods=['GET', 'POST'])
+@main.route('/signup', methods=['GET', 'POST'])
 def signup():
     print('in signup')
     form = SignUpForm()
@@ -158,11 +158,11 @@ def signup():
         db.session.commit()
         flash('Account Created.')
         print('created')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('main.login'))
     print(form.errors)
     return render_template('signup.html', form=form)
 
-@auth.route('/login', methods=['GET', 'POST'])
+@main.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -172,7 +172,7 @@ def login():
         return redirect(next_page if next_page else url_for('main.homepage'))
     return render_template('login.html', form=form)
 
-@auth.route('/logout')
+@main.route('/logout')
 @login_required
 def logout():
     logout_user()
