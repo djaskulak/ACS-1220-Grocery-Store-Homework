@@ -18,3 +18,4 @@ Werkzeug==1.0.1
 WTForms==3.0.1
 WTForms-Ext==0.5
 WTForms-SQLAlchemy==0.3
+flask_login
