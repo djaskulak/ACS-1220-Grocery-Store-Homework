@@ -1,0 +1,27 @@
+{{ form.csrf_token }}
+<fieldset>
+  <legend>Please enter your product information:</legend>
+
+  {{form.name.label}}
+  {{form.name}}
+
+  {{form.price.label}}
+  {{form.price}}
+
+  {{form.category.label}}
+  {{form.category}}
+
+  {{form.photo_url.label}}
+  {{form.photo_url}}
+
+  {{form.store.label}}
+  {{form.store}}
+
+  <ul>
+    {% for error in form.name.errors %}
+      <li class="error">{{ error }}</li>
+    {% endfor %}
+  </ul>
+  
+  {{ form.submit }}
+</fieldset>
